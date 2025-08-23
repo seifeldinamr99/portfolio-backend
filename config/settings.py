@@ -14,7 +14,7 @@ SECRET_KEY = config('SECRET_KEY')
 DEBUG = config('DEBUG', default=False, cast=bool)
 
 # UPDATED: Add Railway domains
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', '0.0.0.0', '*.railway.app']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '0.0.0.0', '*.railway.app', 'web-production-fc28.up.railway.app']
 
 # Application definition
 INSTALLED_APPS = [
