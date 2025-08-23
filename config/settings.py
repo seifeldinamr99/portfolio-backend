@@ -69,12 +69,15 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 # UPDATED: Database configuration for Railway
 DATABASES = {
-    'default': dj_database_url.config(
-        default=config('DATABASE_URL',
-                       default='postgresql://postgres:Qwe@1234@localhost:5433/postgres')
-    )
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': config('DB_NAME'),
+        'USER': config('DB_USER'),
+        'PASSWORD': config('DB_PASSWORD'),
+        'HOST': config('DB_HOST'),
+        'PORT': config('DB_PORT', cast=int),
+    }
 }
-
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -118,7 +121,7 @@ REST_FRAMEWORK = {
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",  # React dev server
     "http://127.0.0.1:3000",
-    "https://your-frontend-domain.vercel.app",  # Update this with your actual frontend URL
+    "https://portfolio-frontend-production-7f46.up.railway.app",
 ]
 
 CORS_ALLOW_CREDENTIALS = True
