@@ -69,12 +69,15 @@ TEMPLATES = [
 WSGI_APPLICATION = 'config.wsgi.application'
 
 # UPDATED: Database configuration for Railway
-
 DATABASES = {
-    'default': dj_database_url.config(
-        default=os.environ.get('DATABASE_URL',
-                              'postgresql://postgres:TIsPCgzoHDuzlbvpOZrrhWweVCEhXcRj@postgres.railway.internal:5432/railway')
-    )
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'railway',
+        'USER': 'postgres',
+        'PASSWORD': 'TIsPCgzoHDuzlbvpOZrrhWweVCEhXcRj',
+        'HOST': 'postgres.railway.internal',
+        'PORT': '5432',
+    }
 }
 
 # Password validation
