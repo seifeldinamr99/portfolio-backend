@@ -4,6 +4,8 @@ from pathlib import Path
 from decouple import config
 import os
 import dj_database_url
+from urllib.parse import urlparse  # ADD THIS IMPORT
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -69,10 +71,22 @@ TEMPLATES = [
 WSGI_APPLICATION = 'config.wsgi.application'
 
 # UPDATED: Database configuration for Railway
+
+
 DATABASE_URL = os.environ.get("DATABASE_PUBLIC_URL") or os.environ.get("DATABASE_URL")
 
+url = urlparse(DATABASE_URL)  # Remove the urlparse.uses_netloc line
+
 DATABASES = {
-    "default": dj_database_url.parse(DATABASE_URL, conn_max_age=600, ssl_require=True)
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": url.path[1:],  # strip leading /
+        "USER": url.username,
+        "PASSWORD": url.password,
+        "HOST": url.hostname,
+        "PORT": url.port,
+        "OPTIONS": {"sslmode": "require"},
+    }
 }
 
 # Password validation
